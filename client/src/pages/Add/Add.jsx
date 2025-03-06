@@ -93,13 +93,18 @@ const Add = () => {
   return (
     <div className='add'>
       <div className="container">
-        <h1>Add New Gig</h1>
+        <h1>Create Your Amazing Gig</h1>
         <div className="sections">
           <div className="left">
-            <label htmlFor="">Title</label>
-            <input name='title' type="text" placeholder="e.g. I will do something I'm really good at" onChange={handleFormCange} />
+            <label>What service are you offering?</label>
+            <input 
+              name='title' 
+              type="text" 
+              placeholder="e.g. I will create a stunning website design" 
+              onChange={handleFormCange} 
+            />
 
-            <label htmlFor="">Category</label>
+            <label>Select your service category</label>
             <select name="category" onChange={handleFormCange}>
               <option value=''>Category</option>
               {
@@ -109,9 +114,17 @@ const Add = () => {
               }
             </select>
 
+            <label>Tell us about your service</label>
+            <textarea 
+              name='description' 
+              rows="8" 
+              placeholder='Describe your service in detail, including what customers will receive' 
+              onChange={handleFormCange}
+            ></textarea>
+
             <div className="images">
               <div className="imagesInputs">
-                <label htmlFor="">Cover Image</label>
+                <label>Upload a cover image that represents your service</label>
                 <input type="file" accept='image/*' onChange={(event) => setCoverImage(event.target.files[0])} />
                 <br />
                 <label htmlFor="">Upload Images</label>
@@ -119,18 +132,24 @@ const Add = () => {
               </div>
               <button disabled={!!disabled} onClick={handleImageUploads}>{uploading ? 'uploading' : disabled ? 'Uploaded' : 'upload'}</button>
             </div>
-
-            <label htmlFor="">Description</label>
-            <textarea name='description' cols="30" rows="16" placeholder='Brief descriptions to introduce your service to customers' onChange={handleFormCange}></textarea>
-            <button onClick={handleFormSubmit}>Create</button>
           </div>
 
           <div className="right">
-            <label htmlFor="">Service Title</label>
-            <input type="text" name='shortTitle' placeholder='e.g. One-page web design' onChange={handleFormCange} />
+            <label>Short & Sweet Title</label>
+            <input 
+              type="text" 
+              name='shortTitle' 
+              placeholder='e.g. Professional Website Design' 
+              onChange={handleFormCange} 
+            />
 
-            <label htmlFor="">Short Description</label>
-            <textarea name='shortDesc' cols="30" rows="10" placeholder='Short description of your service' onChange={handleFormCange}></textarea>
+            <label>Quick Overview</label>
+            <textarea 
+              name='shortDesc' 
+              rows="4" 
+              placeholder='Give a brief, compelling summary of your service' 
+              onChange={handleFormCange}
+            ></textarea>
 
             <label htmlFor="">Delivery Time (e.g. 3 days)</label>
             <input type="number" name='deliveryTime' min='1' onChange={handleFormCange} />
@@ -138,24 +157,41 @@ const Add = () => {
             <label htmlFor="">Revision Number</label>
             <input type="number" name='revisionNumber' min='1' onChange={handleFormCange} />
 
-            <label htmlFor="">Add Feature</label>
+            <label>What's included in your service?</label>
             <form className='add' onSubmit={handleFormFeature}>
-              <input type="text" placeholder='e.g. page design' onChange={handleFormCange} />
+              <input 
+                type="text" 
+                placeholder='Add a feature (e.g. "Logo design", "Video editing")'
+                maxLength="30"
+              />
               <button type='submit'>Add</button>
             </form>
             <div className="addedFeatures">
-              {
+              {state.features?.length === 0 ? (
+                <span style={{ color: '#666', fontSize: '0.9rem' }}>No features added yet</span>
+              ) : (
                 state.features?.map((feature) => (
                   <div key={feature} className="item">
-                    <button onClick={() => dispatch({ type: 'REMOVE_FEATURE', payload: feature })}>{feature}
-                      <span>X</span>
+                    <button onClick={() => dispatch({ type: 'REMOVE_FEATURE', payload: feature })}>
+                      {feature}<span>×</span>
                     </button>
                   </div>
                 ))
-              }
+              )}
             </div>
-            <label htmlFor="">Price</label>
-            <input name='price' type="number" min='1' onChange={handleFormCange} />
+
+            <label>Set Your Price</label>
+            <input 
+              name='price' 
+              type="number" 
+              min='1' 
+              placeholder="Enter amount" 
+              onChange={handleFormCange} 
+            />
+
+            <button onClick={handleFormSubmit}>
+              Launch Your Gig
+            </button>
           </div>
         </div>
       </div>

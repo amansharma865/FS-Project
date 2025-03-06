@@ -55,55 +55,83 @@ const Orders = () => {
   return (
     <div className="orders">
       {isLoading ? (
-        <div className="loader"> <Loader /> </div>
+        <div className="loader">
+          <Loader />
+        </div>
       ) : error ? (
-        "Something went wrong!"
+        <div className="container">
+          <div className="error" style={{ 
+            textAlign: 'center', 
+            padding: '40px',
+            color: '#4a148c',
+            background: '#f3e5f5',
+            borderRadius: '12px' 
+          }}>
+            <h2 style={{ marginBottom: '10px' }}>Oops! Something went wrong</h2>
+            <p>Please try again later</p>
+          </div>
+        </div>
       ) : (
         <div className="container">
           <div className="title">
-            <h1>Orders</h1>
+            <h1>Your Orders</h1>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>{user.isSeller ? "Buyer" : "Seller"}</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Contact</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((order) => (
-                <tr key={order._id}>
-                  <td>
-                    <img className="img" src={order.image} alt="" />
-                  </td>
-                  <td>
-                    {user.isSeller
-                      ? order.buyerID.username
-                      : order.sellerID.username}
-                  </td>
-                  <td>{order.title.slice(0, 30)}...</td>
-                  <td>
-                    {order.price.toLocaleString("en-IN", {
-                      maximumFractionDigits: 0,
-                      style: "currency",
-                      currency: "INR",
-                    })}
-                  </td>
-                  <td>
-                    <img
-                      className="message"
-                      src="./media/message.png"
-                      alt="message"
-                      onClick={() => handleContact(order)}
-                    />
-                  </td>
+          {data.length === 0 ? (
+            <div className="no-orders">
+              <h3>No orders found</h3>
+              <p>When you make a purchase, it will appear here</p>
+            </div>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>{user.isSeller ? "Buyer" : "Seller"}</th>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Contact</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data.map((order) => (
+                  <tr key={order._id}>
+                    <td>
+                      <img className="img" src={order.image} alt={order.title} />
+                    </td>
+                    <td>
+                      <span 
+                        className="username"
+                        title={user.isSeller ? "View Buyer Profile" : "View Seller Profile"}
+                      >
+                        {user.isSeller
+                          ? order.buyerID.username
+                          : order.sellerID.username}
+                      </span>
+                    </td>
+                    <td title={order.title}>{order.title.slice(0, 30)}{order.title.length > 30 ? "..." : ""}</td>
+                    <td>
+                      <span title="Order Amount">
+                        {order.price.toLocaleString("en-IN", {
+                          maximumFractionDigits: 0,
+                          style: "currency",
+                          currency: "INR",
+                        })}
+                      </span>
+                    </td>
+                    <td>
+                      <img
+                        className="messagebox"
+                        src="./media/message.png"
+                        alt="message"
+                        onClick={() => handleContact(order)}
+                        title="Contact User"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       )}
     </div>

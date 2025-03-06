@@ -41,52 +41,55 @@ const Messages = () => {
   }
 
   return (
-    <div className='messages'>
-      <div className="container">
-        <div className="title">
+    <div className='messages-page'>
+      <div className="messages-container">
+        <div className="messages-title">
           <h1>Messages</h1>
         </div>
-        {
-          isLoading
-            ? <div className='loader'> <Loader /> </div>
-            : error
-              ? 'Something went wrong!'
-              : <table>
-                <thead>
-                  <tr>
-                    <th>{user.isSeller ? 'Buyer' : 'Seller'}</th>
-                    <th>Last Message</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    data.map((conv) => (
-                      <tr key={conv._id} className={((user.isSeller && !conv.readBySeller) || (!user.isSeller && !conv.readByBuyer)) &&
-                        "active" || ''}>
-                        <td>{user.isSeller ? conv.buyerID.username : conv.sellerID.username}</td>
-                        <td>
-                          <Link className='link' to={`/message/${conv.conversationID}`}>
-                            {conv?.lastMessage?.slice(0, 100)}...
-                          </Link>
-                        </td>
-                        <td>{moment(conv.updatedAt).fromNow()}</td>
-                        <td>
-                          {
-                            ((user.isSeller && !conv.readBySeller) || (!user.isSeller && !conv.readByBuyer)) &&
-                            (<button onClick={() => handleMessageRead(conv.conversationID)}>Mark as read</button>)
-                          }
-                        </td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-        }
+        {isLoading ? (
+          <div className='loader'><Loader /></div>
+        ) : error ? (
+          'Something went wrong!'
+        ) : (
+          <table className="messages-table">
+            <thead>
+              <tr>
+                <th>{user.isSeller ? 'Buyer' : 'Seller'}</th>
+                <th>Last Message</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((conv) => (
+                <tr key={conv._id} className={((user.isSeller && !conv.readBySeller) || 
+                  (!user.isSeller && !conv.readByBuyer)) && "active"}>
+                  <td>{user.isSeller ? conv.buyerID.username : conv.sellerID.username}</td>
+                  <td>
+                    <Link className='messages-link' to={`/message/${conv.conversationID}`}>
+                      {conv?.lastMessage?.slice(0, 100)}...
+                    </Link>
+                  </td>
+                  <td>{moment(conv.updatedAt).fromNow()}</td>
+                  <td>
+                    {((user.isSeller && !conv.readBySeller) || 
+                      (!user.isSeller && !conv.readByBuyer)) && (
+                      <button 
+                        className="messages-action-btn"
+                        onClick={() => handleMessageRead(conv.conversationID)}
+                      >
+                        Mark as read
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Messages
+export default Messages;

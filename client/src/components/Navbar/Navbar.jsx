@@ -47,6 +47,18 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const userMenu = event.target.closest('.user');
+      if (!userMenu && showPanel) {
+        setShowPanel(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [showPanel]);
+
   const menuLinks = [
     { path: "/gigs?category=design", name: "Graphics & Design" },
     { path: "/gigs?category=video", name: "Video & Animation" },
@@ -56,6 +68,18 @@ const Navbar = () => {
     { path: "/gigs?category=voice", name: "Music & Audio" },
     { path: "/gigs?category=wordpress", name: "Programming & Tech" },
   ];
+
+  const CustomPrevArrow = (props) => (
+    <div className="slick-arrow slick-prev" onClick={props.onClick}>
+      <GrFormPrevious />
+    </div>
+  );
+
+  const CustomNextArrow = (props) => (
+    <div className="slick-arrow slick-next" onClick={props.onClick}>
+      <GrFormNext />
+    </div>
+  );
 
   const settings = {
     infinite: true,
@@ -136,39 +160,39 @@ const Navbar = () => {
                 </button>
               )}
               {user && (
-                <div className="user" onClick={() => setShowPanel(!showPanel)}>
-                  <img src={user.image || "/media/noavatar.png"} />
-                  <span>{user?.username}</span>
-                  {showPanel && (
-                    <div className="options">
-                      {user?.isSeller && (
-                        <>
-                          <Link className="link" to="/my-gigs">
-                            Gigs
-                          </Link>
-                          <Link className="link" to="/organize">
-                            Add New Gig
-                          </Link>
-                        </>
-                      )}
-                      <Link className="link" to="/orders">
-                        Orders
-                      </Link>
-                      <Link className="link" to="/messages">
-                        Messages
-                      </Link>
-                      <Link className="link" to="/" onClick={handleLogout}>
-                        Logout
-                      </Link>
-                    </div>
-                  )}
+                <div className="user">
+                  <div className="user-info" onClick={() => setShowPanel(!showPanel)}>
+                    <img src={user.image || "/media/noavatar.png"} alt="user" />
+                    <span>{user?.username}</span>
+                  </div>
+                  <div className={`options ${showPanel ? 'active' : ''}`}>
+                    {user?.isSeller && (
+                      <>
+                        <Link className="link" to="/my-gigs">
+                          Gigs
+                        </Link>
+                        <Link className="link" to="/organize">
+                          Add New Gig
+                        </Link>
+                      </>
+                    )}
+                    <Link className="link" to="/orders">
+                      Orders
+                    </Link>
+                    <Link className="link" to="/messages">
+                      Messages
+                    </Link>
+                    <Link className="link" to="/" onClick={handleLogout}>
+                      Logout
+                    </Link>
+                  </div>
                 </div>
               )}
             </>
           )}
         </div>
       </div>
-      {(showMenu || pathname !== "/") && (
+      {(showMenu || pathname !== "/") && ( 
         <>
           <hr />
           <Slider className="menu" {...settings}>

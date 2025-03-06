@@ -5,9 +5,10 @@ import { Review, Loader } from '..';
 import { axiosFetch } from '../../utils';
 import toast from 'react-hot-toast';
 import './Reviews.scss';
+import { motion } from 'framer-motion';
+import { FaStar } from 'react-icons/fa';
 
-const Reviews = (props) => {
-    const { gigID } = props;
+const Reviews = ({ gigID }) => {
     const navigation = useNavigate();
     const queryClient = useQueryClient();
     const { isLoading, error, data, refetch } = useQuery({
@@ -53,29 +54,69 @@ const Reviews = (props) => {
     }
 
     return (
-        <div className="reviews">
-            <h2>Reviews</h2>
-            {
-                isLoading
-                    ? <div className='loader'><Loader size={35} /></div>
-                    : error
-                        ? 'Something went wrong!'
-                        : data.map((review) => <Review key={review._id} review={review} />)
-            }
-            <div className="add">
-                <form className='addForm' onSubmit={handleReviewSubmit}>
-                    <textarea cols="20" rows="10" placeholder='Write a review'></textarea>
-                    <select>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                    </select>
-                    <button>Send</button>
-                </form>
+        <motion.div 
+            className="reviews"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
+            <div className="reviews-header">
+                <h2>Customer Reviews</h2>
+                <div className="rating-summary">
+                    <span className="total-reviews">{data?.length || 0} Reviews</span>
+                    <div className="stars">
+                        {[...Array(5)].map((_, i) => (
+                            <FaStar key={i} size={16} />
+                        ))}
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <motion.div 
+                className="add"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+            >
+                <form 
+                    className='addForm' 
+                    onSubmit={handleReviewSubmit}
+                >
+                    <textarea 
+                        placeholder='Share your experience with this service...'
+                        required
+                    />
+                    <div className="review-actions">
+                        <select required>
+                            <option value="">Rate this service</option>
+                            {[1, 2, 3, 4, 5].map(num => (
+                                <option key={num} value={num}>{num} Stars</option>
+                            ))}
+                        </select>
+                        <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            Post Review
+                        </motion.button>
+                    </div>
+                </form>
+            </motion.div>
+
+            <div className="reviews-grid">
+                {isLoading ? (
+                    <Loader />
+                ) : error ? (
+                    <div>Error loading reviews</div>
+                ) : data?.length === 0 ? (
+                    <div>No reviews yet</div>
+                ) : (
+                    data.map((review) => (
+                        <Review key={review._id} review={review} />
+                    ))
+                )}
+            </div>
+        </motion.div>
     )
 }
 
