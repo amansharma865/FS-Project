@@ -2,21 +2,20 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { RecoilRoot } from "recoil";
-import { Navbar, PrivateRoute } from "./components";
+import { Navbar, PrivateRoute, Footer } from "./components";
 import {
   Home,
-  Footer,
   Gig,
   Gigs,
   MyGigs,
   Add,
   Orders,
-  Message,
+  Message, 
   Messages,
   Login,
   Register,
   Pay,
-  Success,
+  Success, 
   NotFound,
 } from "./pages";
 import "./App.scss";
@@ -93,7 +92,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Navbar />
         <Outlet />
-        {/* <Footer /> */}
+        <Footer />
       </QueryClientProvider>
     );
   };
