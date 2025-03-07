@@ -263,7 +263,7 @@ const Home = () => {
               >
                 <video 
                   className="feature-video"
-                  poster='https://fiverr-res.cloudinary.com/q_auto,f_auto,w_700,dpr_1.0/v1/attachments/generic_asset/asset/089e3bb9352f90802ad07ad9f6a4a450-1599517407052/selling-proposition-still-1400-x1.png' 
+                  poster='https://images.unsplash.com/photo-1505243542579-da5adfe8338f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fHBlb3BsZSUyMHdvcmtpbmclMjB0b2dldGhlcnxlbnwwfDB8MHx8fDA%3D' 
                   src="./media/video3.mp4" 
                   controls
                   preload="metadata"

@@ -21,8 +21,8 @@ const Footer = () => {
     support: [
       "Help & Support",
       "Trust & Safety",
-      "Selling on Fiverr",
-      "Buying on Fiverr",
+      "Selling on ProLancer",
+      "Buying on ProLancer",
       "Contact Us"
     ],
     community: [
@@ -119,8 +119,8 @@ const Footer = () => {
           transition={{ delay: 0.5 }}
         >
           <div className="left">
-            <h2>fiverr</h2>
-            <span>© Fiverr International Ltd. 2023</span>
+            <h2>ProLancer</h2>
+            <span>© ProLancer International Ltd. 2023</span>
           </div>
           <div className="right">
             <div className="social">
