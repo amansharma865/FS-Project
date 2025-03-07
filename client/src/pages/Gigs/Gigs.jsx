@@ -48,37 +48,37 @@ const Gigs = () => {
   return (
     <div className='gigs'>
       <div className="container">
-        <span className="breadcrumbs">FIVERR {category[0]?.toUpperCase() + category.slice(1)}</span>
-        <h1>{category[0]?.toUpperCase() + category.slice(1)}</h1>
-        <p>Explore the boundaries of art and technology with ProLancer's {category} artists</p>
+        <span className="breadcrumbs">Home {'>'} {category}</span>
+        <h1>{category || 'Search Results'}</h1>
+        <p>Find the perfect services for your business</p>
         <div className="menu">
           <div className="left">
-            <span>Budget</span>
-            <input ref={minRef} type="number" placeholder='min' />
-            <input ref={maxRef} type="number" placeholder='max' />
+            <input ref={minRef} type="number" placeholder='Min price' />
+            <input ref={maxRef} type="number" placeholder='Max price' />
             <button onClick={handlePriceFilter}>Apply</button>
           </div>
           <div className="right">
-            <span className='sortBy'>Sort By</span>
-            <span className='sortType'>{sortBy === 'sales' ? 'Best Selling' : 'Newest'}</span>
-            <img src="./media/down.png" alt="" onClick={() => setOpenMenu(!openMenu)} />
-            {
-              openMenu && (<div className="rightMenu">
-                {
-                  sortBy === 'sales' ? <span onClick={() => handleSortBy('createdAt')}>Newest</span>
-                    : <span onClick={() => handleSortBy('sales')}>Best Selling </span>
+            <span className='sortBy'>Sort by:</span>
+            <div className='sortType' onClick={() => setOpenMenu(!openMenu)}>
+              {sortBy === 'sales' ? 'Best Selling' : 'Newest'}
+              <img src="./media/down.png" alt="sort" />
+            </div>
+            {openMenu && (
+              <div className="rightMenu">
+                {sortBy === 'sales' 
+                  ? <span onClick={() => handleSortBy('createdAt')}>Newest</span>
+                  : <span onClick={() => handleSortBy('sales')}>Best Selling</span>
                 }
-              </div>)
-            }
+              </div>
+            )}
           </div>
         </div>
         <div className="cards">
-          {
-            isLoading
-              ? <div className='loader'> <Loader size={45} /> </div>
-              : error
-                ? 'Something went wrong!'
-                : data.map((gig) => <GigCard key={gig._id} data={gig} />)
+          {isLoading 
+            ? <div className='loader'><Loader size={45} /></div>
+            : error 
+              ? <div>Something went wrong!</div>
+              : data?.map((gig) => <GigCard key={gig._id} data={gig} />)
           }
         </div>
       </div>

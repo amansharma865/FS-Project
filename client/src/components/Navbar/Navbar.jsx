@@ -133,9 +133,9 @@ const Navbar = () => {
 
         <div className="links">
           <div className="menu-links">
-            <span>ProLancer Business</span>
-            <span>Explore</span>
-            <span>English</span>
+            <span>For Enterprise</span>
+            <span>Features</span>
+            <span>Contact Us</span>
             {!user?.isSeller && <span>Become a Seller</span>}
             {user?.isSeller && <span>Add a new gig</span>}
           </div>

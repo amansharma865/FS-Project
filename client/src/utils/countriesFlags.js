@@ -1,4 +1,8 @@
 const countriesFlags = {
+	India: {
+		mini: "http://flags.fmcdn.net/data/flags/mini/in.png",
+		normal: "http://flags.fmcdn.net/data/flags/normal/in.png",
+	},
 	Afghanistan: {
 		mini: "http://flags.fmcdn.net/data/flags/mini/af.png",
 		normal: "http://flags.fmcdn.net/data/flags/normal/af.png",
@@ -314,10 +318,7 @@ const countriesFlags = {
 		mini: "http://flags.fmcdn.net/data/flags/mini/is.png",
 		normal: "http://flags.fmcdn.net/data/flags/normal/is.png",
 	},
-	India: {
-		mini: "http://flags.fmcdn.net/data/flags/mini/in.png",
-		normal: "http://flags.fmcdn.net/data/flags/normal/in.png",
-	},
+	
 	Indonesia: {
 		mini: "http://flags.fmcdn.net/data/flags/mini/id.png",
 		normal: "http://flags.fmcdn.net/data/flags/normal/id.png",
