@@ -238,16 +238,31 @@
             padding-left: 0;  // removed padding
             border-left: none;  // removed divider line
 
-            img {
+            .main-image {
                 max-width: 550px;
                 object-fit: contain;
                 filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
-                transform: scale(1.1);  // make image slightly larger
+                transform: scale(1.1);
                 animation: floatAnimation 6s ease-in-out infinite;
+                z-index: 1;
+            }
 
-                @media screen and (max-width: 900px) {
-                    display: none;
-                }
+            .overlay-image {
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                bottom: -60px;
+                right: -30px;
+                border-radius: 12px;
+                object-fit: cover;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                z-index: 2;
+                animation: floatAnimation 6s ease-in-out infinite;
+                transform-origin: center;
+            }
+
+            @media screen and (max-width: 900px) {
+                display: none;
             }
         }
     }

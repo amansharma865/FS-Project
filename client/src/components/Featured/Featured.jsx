@@ -117,10 +117,20 @@ const Featured = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.img 
-            src="./media/hero.png" 
+            src="./media/hero.jpg" 
             alt="hero"
+            className="main-image"
             whileHover={{ scale: 1.15 }}
             transition={{ duration: 0.3 }}
+          />
+          <motion.img 
+            src="./media/overlay.jpg" 
+            alt="overlay"
+            className="overlay-image"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            whileHover={{ scale: 1.1 }}
           />
         </motion.div>
       </div>
