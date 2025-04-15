@@ -184,7 +184,7 @@ const MyGigs = () => {
             >
               <h2>No gigs found</h2>
               <Link to='/organize' className='link'>
-                <button>Create Your First Gig</button>
+                <button className='' style={{ color: 'black' }}>Create Your First Gig</button>
               </Link>
             </motion.div>
           ) : (
