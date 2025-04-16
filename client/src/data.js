@@ -3,7 +3,7 @@ export const cards = [
       id: 1,
       title: "AI Artists",
       desc: "Add talent to AI",
-      img: "https://fiverr-res.cloudinary.com/q_auto,f_auto,w_255,dpr_1.0/v1/attachments/generic_asset/asset/f27bec553efc12cc60baed89b8f2223e-1674661140708/ai-artists-2x.png",
+      img: "https://magazine.alumni.ubc.ca/sites/default/files/2023-09/AIart-1920x1080.jpg",
       slug: 'ai',
     },
     {
